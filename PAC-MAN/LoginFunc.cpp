@@ -47,6 +47,7 @@ void* Loud_File(char* strFileName, char* strDataType)
 		gameTmp->score = 0;
 		gameTmp->nPills = NumberOfObjects(gameTmp->map, 'P', gameTmp->row, gameTmp->col);
 		gameTmp->nGhosts = NumberOfObjects(gameTmp->map, 'G', gameTmp->row, gameTmp->col);
+		gameTmp->Ghost = (char**)malloc(sizeof(char*) * gameTmp->nGhosts);
 		return gameTmp;
 	}
 

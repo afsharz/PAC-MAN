@@ -11,7 +11,8 @@ char* UploadMap(const char*FileName)
 		printf("\nError Loading Game\n");
 		return 0;
 	}
-	game = (GAME*)malloc(sizeof(GAME));	fscanf(fp, "%d %d", &game->col, &game->row);
+	game = (GAME*)malloc(sizeof(GAME));
+	fscanf(fp, "%d %d", &game->col, &game->row);
 	str = (char*)calloc(sizeof(char),( game->row* game->col)+1);
 	fread(str, game->row * game->col ,1, fp);
 	CreateMatrix(game,game->col,game->row,str);
@@ -29,8 +30,6 @@ GAME* CreateMatrix( GAME *input, int col, int row,char* strMap)
 	for (int i = 0; i < input->row; i++)
 		for (int j = 0; j < input->col; j++)
 			input->map[i][j] = strMap[k++];
-	input->nPills = NumberOfObjects(input->map, 'P', input->row, input->col);
-	input->nGhosts = NumberOfObjects(input->map, 'G', input->row, input->col);
 	input->Ghost = (char**)malloc((input->nGhosts) * sizeof(char*));
 	for (int i = 0; i < input->nGhosts; i++)
 	{

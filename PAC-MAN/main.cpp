@@ -11,9 +11,3 @@ int main()
 }
 
 
-//char FileName[15],FileType[15];
-	//GAME* idk;
-	//strcpy(FileName, "C:\\Users\\User\\Downloads\\mapA.txt");
-	//strcpy(FileType, "GAME");
-	//idk=(GAME*) Loud_File(FileName, FileType);
-	////PlayGame(idk);

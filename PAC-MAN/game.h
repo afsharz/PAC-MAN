@@ -60,9 +60,10 @@ GAMER_INFO* LoginPage(BT_userpass* root);
 GAMER_INFO* SignUpPage(BT_userpass* root);
 void PlayGame(GAME* input, GAMER_INFO* user);
 GAME* CreateMatrix(GAME* input, int col, int row, char* strMap);
-void FindPositon(const char object,int num,char* buff, char** Matrix, int col, int row);
+char* FindPositon(const char object,int num,char* buff, char** Matrix, int col, int row);
 void PrintMapInConsole(GAME* strMap);// Design Part
 int NumberOfObjects(char** strMap,char Object, int row, int col);
+int MovingGhosts(GAME *input);
 
 void HomePage(void);
 
