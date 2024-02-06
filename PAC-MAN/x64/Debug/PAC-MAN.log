@@ -1,0 +1,7 @@
+﻿cl : command line  warning D9025: overriding '/D_CRT_SECURE_NO_WARNINGS' with '/U_CRT_SECURE_NO_WARNINGS'
+  HomePage.cpp
+D:\IUT\BP\PAC-MAN\PAC-MAN\HomePage.cpp(5,9): warning C4129: ' ': unrecognized character escape sequence
+Playing.obj : error LNK2019: unresolved external symbol "void __cdecl PrintMapInConsole(struct GAME *)" (?PrintMapInConsole@@YAXPEAUGAME@@@Z) referenced in function "void __cdecl PlayGame(struct GAME *,struct GAMER_INFO *)" (?PlayGame@@YAXPEAUGAME@@PEAUGAMER_INFO@@@Z)
+    Hint on symbols that are defined and could potentially match:
+      "void __cdecl PrintMapInConsole(struct GAME *,struct GAMER_INFO *)" (?PrintMapInConsole@@YAXPEAUGAME@@PEAUGAMER_INFO@@@Z)
+D:\IUT\BP\PAC-MAN\x64\Debug\PAC-MAN.exe : fatal error LNK1120: 1 unresolved externals
