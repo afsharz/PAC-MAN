@@ -33,7 +33,7 @@ GAME* CreateMatrix( GAME *input, int col, int row,char* strMap)
 	input->Ghost = (char**)malloc((input->nGhosts) * sizeof(char*));
 	for (int i = 0; i < input->nGhosts; i++)
 	{
-		FindPositon('G',1, input->Ghost[i], input->map, input->col, input->row);
+		FindPositon('G',1, &input->Ghost[i], input->map, input->col, input->row);
 	}
 
 	return input;

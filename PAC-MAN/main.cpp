@@ -2,10 +2,19 @@
 
 int main()
 {
+	int cmd;
+	cmd=HomePage();
+	switch (cmd)
+	{
+	case 1:
+	{
+	
+	}
+	case 2:
+	{
 
-	HomePage();
-	int x;
-	scanf("%d", &x);
+	}
+	}
 	
 	return 0;
 }

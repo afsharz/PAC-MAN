@@ -8,13 +8,14 @@
 #include <Windows.h>
 #include <string.h>
 #include <cstdlib>
+#include <stdio.h>
 
 #define namelen 100
 #define usernamelen 50
 #define passwordlen 20
 #define addresslen 200
 #define typelen 20
-
+using namespace std;
 typedef struct userpass
 {
 	char username[usernamelen];
@@ -60,11 +61,11 @@ GAMER_INFO* LoginPage(BT_userpass* root);
 GAMER_INFO* SignUpPage(BT_userpass* root);
 void PlayGame(GAME* input, GAMER_INFO* user);
 GAME* CreateMatrix(GAME* input, int col, int row, char* strMap);
-char* FindPositon(const char object,int num,char* buff, char** Matrix, int col, int row);
+char* FindPositon(const char object,int num,char** buff, char** Matrix, int col, int row);
 void PrintMapInConsole(GAME* strMap);// Design Part
 int NumberOfObjects(char** strMap,char Object, int row, int col);
 int MovingGhosts(GAME *input);
 
-void HomePage(void);
+int HomePage(void);
 
 #endif GAME_H

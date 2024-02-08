@@ -116,13 +116,17 @@ GAMER_INFO* SignUpPage(BT_userpass* root)
 	char strFileName[addresslen], DataType[typelen];
 	strcpy(strFileName, "Passwords.bin");
 	strcpy(DataType, "userpass");
+	
 	if (!root)
 		root = (BT_userpass*)Loud_File(strFileName, DataType);
-	if (Search(root, pass_Tmp.username))
-		/// username already taken.
-		;
-	else
+	while (Search(root, pass_Tmp.username))
 	{
+		printf("This username is already taken.Pick something else.\n ");
+		scanf("%s", Tmp.username);
+
+	}
+
+	
 		fp=fopen("password.bin", "a+b");
 		fwrite(&pass_Tmp, sizeof(userpass), 1, fp);
 		fclose(fp);
@@ -131,5 +135,4 @@ GAMER_INFO* SignUpPage(BT_userpass* root)
 		fwrite(&Tmp, sizeof(GAMER_INFO), 1, fp);
 		fclose(fp);
 		return &Tmp;
-	}
 }
