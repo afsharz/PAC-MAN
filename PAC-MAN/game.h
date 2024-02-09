@@ -9,6 +9,7 @@
 #include <string.h>
 #include <cstdlib>
 #include <stdio.h>
+#include <synchapi.h>
 
 #define namelen 100
 #define usernamelen 50
@@ -62,10 +63,13 @@ GAMER_INFO* SignUpPage(BT_userpass* root);
 void PlayGame(GAME* input, GAMER_INFO* user);
 GAME* CreateMatrix(GAME* input, int col, int row, char* strMap);
 char* FindPositon(const char object,int num,char** buff, char** Matrix, int col, int row);
-void PrintMapInConsole(GAME* strMap);// Design Part
+void PrintMapInConsole(GAME* input, GAMER_INFO* user);// Design Part
 int NumberOfObjects(char** strMap,char Object, int row, int col);
 int MovingGhosts(GAME *input);
 
 int HomePage(void);
-
+GAME* UserMenu(GAMER_INFO* gamer);
+int BeautifulMenu(int option);
+void printInfo(GAMER_INFO* gamer);
+void SaveData(GAMER_INFO* input);
 #endif GAME_H

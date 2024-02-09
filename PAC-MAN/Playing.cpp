@@ -1,5 +1,6 @@
 #include "game.h"
 
+
 void PlayGame(GAME* input, GAMER_INFO* user)
 {
 	int arrow;
@@ -23,7 +24,13 @@ void PlayGame(GAME* input, GAMER_INFO* user)
 				position = position + input->col;
 			}
 			else if (*(position + input->col) == 'G')
-				printf("\ngame over :( \n");
+			{
+				Sleep(2000);
+				system("cls");
+				printf("\nGAME OVER :( \n");
+				_getch();
+				return;
+			}
 			else if (*(position + input->col) == 'P')
 			{
 				input->score++;
@@ -104,7 +111,7 @@ void PlayGame(GAME* input, GAMER_INFO* user)
 		}
 		_getch();
 	}
-	 printf("Do you want to save the game and play it later?\nYES\nNO");
+	 printf("Do you want to save the game and play it later?\n1.YES\n2.NO");
 		 scanf("%c", &cmd);
 		// if (cmd == y)
 			// savedata;
@@ -138,6 +145,7 @@ int MovingGhosts(GAME* input)
 		{
 			first:
 			arrow = rand() % 4;
+			Sleep(1000);
 			switch (arrow)
 			{
 			case '0'://down
@@ -202,4 +210,53 @@ int MovingGhosts(GAME* input)
 		}
 		PrintMapInConsole(input);
 	}
+}
+
+void PrintMapInConsole(GAME* strMap)
+{
+	int i, j, line;
+	for ( i = 0; i < (strMap->row) + 10; i++)
+		printf("_");
+	for (i = 0; i < strMap->row; i++)
+	{
+		for (line = 0; line < 5; line++)
+		{
+			printf("\t");
+			
+			for (j = 0; j < strMap->col;j++)
+			{
+				switch (strMap->map[i][j])
+				{
+				case '@':
+				{
+
+					break;
+				}
+				case 'P':
+				{
+
+					break;
+				}
+				case 'G':
+				{
+
+					break;
+				}case '.':
+				{
+					printf(" ");
+					break;
+				}
+				case ('|'||'-'):
+				{
+					printf(".");
+					break;
+				}
+				}
+			}
+			
+		}
+	
+	}
+	for (int i = 0; i < (strMap->row) + 10; i++)
+		printf("_");
 }

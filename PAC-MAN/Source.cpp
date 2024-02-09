@@ -48,12 +48,52 @@ void PrintMapInConsole(GAME* input,GAMER_INFO *user)
 {
 	printf("PLAYER:%s\nID:%s\n");
 	printf("SCORE: %d \t\t\tLEVEL:%s",input->score,input->difficulty);
-	for (int i = 0; i < input->row; i++)
+	int i, j, line;
+	for (i = 0; i < (input->row) + 10; i++)
+		printf("_");
+	for (i = 0; i < input->row; i++)
 	{
-		for (int j = 0; j < input->col; j++)
-			printf("%c", input->map[i][j]);
-		printf("\n");
+		for (line = 0; line < 5; line++)
+		{
+			printf("\t");
+
+			for (j = 0; j < input->col; j++)
+			{
+				switch (input->map[i][j])
+				{
+				case '@':
+				{
+
+					break;
+				}
+				case 'P':
+				{
+
+					break;
+				}
+				case 'G':
+				{
+
+					break;
+				}case '.':
+				{
+					printf(" ");
+					break;
+				}
+				case ('|' || '-'):
+				{
+					printf(".");
+					break;
+				}
+				}
+			}
+
+		}
+
 	}
+	for (int i = 0; i < (input->row) + 10; i++)
+		printf("_");
+
 }
 
 
@@ -65,4 +105,10 @@ int NumberOfObjects(char** strMap, char object, int row, int col)
 			if (strMap[i][j] == object)
 				Num++;
 	return Num;
+}
+
+void wait(int milliseconds) 
+{
+
+	Sleep(milliseconds); // Sleep for milliseconds on Windows
 }

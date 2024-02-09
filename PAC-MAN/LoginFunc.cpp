@@ -13,8 +13,10 @@ void* Loud_File(char* strFileName, char* strDataType)
 	if (!strcmp(strDataType, "userpass"))
 	{
 		root = new BT_userpass;
-		fread(&root->data, sizeof(userpass), 1, fp);
 		root->left = root->right = NULL;
+		root->data = {};
+		fread(&root->data, sizeof(userpass), 1, fp);
+		
 		while (fread(&userTmp,sizeof(userpass),1,fp)>0)
 			Insert(root, userTmp);
 		fclose(fp);
@@ -76,6 +78,8 @@ BT_userpass* NewUserPass( userpass data)
 
 userpass *Search(BT_userpass* root, char* strUsername)
 {
+	if (!root)
+		return NULL;
 	if (!strcmp(root->data.username, strUsername))
 		return &root->data;
 	if (strcmp(strUsername, root->data.username) > 0)
@@ -86,11 +90,16 @@ userpass *Search(BT_userpass* root, char* strUsername)
 
 GAMER_INFO* LoginPage(BT_userpass* root)
 {
+	int cmd;
 	userpass* pUser=NULL;
 	char Username[usernamelen], Password[passwordlen];
 	char strFileName[addresslen],DataType[typelen];
-
-	strcpy(strFileName, "Passwords.bin");
+	first:
+	printf("Enter your username\n");
+	scanf("%s",Username);
+	printf("Enter your password\n");
+	scanf("%s", Password);
+	strcpy(strFileName, "Passwords.txt");
 	strcpy(DataType, "userpass");
 	root=(BT_userpass*)Loud_File(strFileName, DataType);
 	pUser = Search(root, Username);
@@ -102,7 +111,19 @@ GAMER_INFO* LoginPage(BT_userpass* root)
 	}
 	else
 	{
-		printf("WRONG password or username!\n\n Don't have account?\nSign Up");
+		printf("WRONG password or username! 1.Try Again\n\n Don't have account?\n2.Sign Up");
+		scanf("%d", &cmd);
+		if (cmd == 2)
+		{
+			system("cls");
+			SignUpPage(root);
+			return;
+		}
+		else
+		{
+			system("cls");
+			goto first;
+		}
 	}
 	
 }
@@ -114,20 +135,25 @@ GAMER_INFO* SignUpPage(BT_userpass* root)
 	userpass pass_Tmp;
 	FILE *fp;
 	char strFileName[addresslen], DataType[typelen];
-	strcpy(strFileName, "Passwords.bin");
+	strcpy(strFileName, "Passwords.txt");
 	strcpy(DataType, "userpass");
-	
+	printf("Enter Your Name\n");
+	scanf("%s", Tmp.name);
+	printf("Choose a username \n");
+	scanf("%s", pass_Tmp.username);
 	if (!root)
 		root = (BT_userpass*)Loud_File(strFileName, DataType);
 	while (Search(root, pass_Tmp.username))
 	{
 		printf("This username is already taken.Pick something else.\n ");
-		scanf("%s", Tmp.username);
-
+		scanf("%s", pass_Tmp.username);
 	}
-
-	
-		fp=fopen("password.bin", "a+b");
+	printf("enter your password\n");
+	scanf("%d", pass_Tmp.password);
+	strcpy(Tmp.username, pass_Tmp.password);
+	Tmp.level = 0;
+	Tmp.UnfinishedGame = {};
+		fp=fopen("Passwords.txt", "a+b");
 		fwrite(&pass_Tmp, sizeof(userpass), 1, fp);
 		fclose(fp);
 		strcat(pass_Tmp.username, ".txt");
