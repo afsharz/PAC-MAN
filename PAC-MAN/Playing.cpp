@@ -3,19 +3,20 @@
 
 void PlayGame(GAME* input, GAMER_INFO* user)
 {
+	bool BeSucc;
 	int arrow;
 	char cmd;
 	char* position;
 	position =FindPositon('@',1,&position, input->map, input->col, input->row);
 	FindPositon('G',input->nGhosts,input->Ghost,input->map,input->col,input->row);
-	PrintMapInConsole(input);
+	PrintMapInConsole(input,user);
 	system("cls");
 	 while (_getch() != 0)
 	{
 		 system("cls");
 		switch (_getch())
 		{
-		case 'P'://down
+		case Down:
 		{
 			if (*(position + input->col) == '.')
 			{
@@ -41,7 +42,7 @@ void PlayGame(GAME* input, GAMER_INFO* user)
 			}
 				break;
 		}
-		case 'M'://right
+		case Right:
 		{
 			if (*(position + 1) == '.')
 			{
@@ -60,7 +61,7 @@ void PlayGame(GAME* input, GAMER_INFO* user)
 			}
 				break;
 		}
-		case 'K'://left
+		case Left:
 		{
 			if (*position - 1 == '.')
 			{
@@ -82,7 +83,7 @@ void PlayGame(GAME* input, GAMER_INFO* user)
 			}
 				break;
 		}
-		case 'H'://up
+		case Up:
 		{
 			if (*(position - input->col) == '.')
 			{
@@ -102,19 +103,25 @@ void PlayGame(GAME* input, GAMER_INFO* user)
 				break;
 		}
 		}
-		PrintMapInConsole(input);
+		PrintMapInConsole(input,user);
+		printf("\nPress 0 to Exit");
 		if (!input->nPills) // print 'win' if there is no more pills 
 		{
 			user->level += 3;
 			printf("\n\t\tYOU WIN!\n");
-			_getch();
+			Sleep(3000);
+			return;
 		}
 		_getch();
 	}
 	 printf("Do you want to save the game and play it later?\n1.YES\n2.NO");
 		 scanf("%c", &cmd);
-		// if (cmd == y)
-			// savedata;
+		 if (cmd == 1)
+			 user->UnfinishedGame = *input;
+		 else
+			 user->UnfinishedGame = {};
+		 UpdateUserData(user);
+
 }
 
 char* FindPositon(const char object, int num, char** buff, char** Matrix, int col, int row)
@@ -134,7 +141,7 @@ char* FindPositon(const char object, int num, char** buff, char** Matrix, int co
 						*(buff + k) = &(Matrix[i][j]);
 	}
 
-int MovingGhosts(GAME* input)
+int MovingGhosts(GAME* input,GAMER_INFO *user)
 {
 	int arrow;
 	while (true)
@@ -208,55 +215,55 @@ int MovingGhosts(GAME* input)
 
 			}
 		}
-		PrintMapInConsole(input);
+		PrintMapInConsole(input,user);
 	}
 }
 
-void PrintMapInConsole(GAME* strMap)
-{
-	int i, j, line;
-	for ( i = 0; i < (strMap->row) + 10; i++)
-		printf("_");
-	for (i = 0; i < strMap->row; i++)
-	{
-		for (line = 0; line < 5; line++)
-		{
-			printf("\t");
-			
-			for (j = 0; j < strMap->col;j++)
-			{
-				switch (strMap->map[i][j])
-				{
-				case '@':
-				{
-
-					break;
-				}
-				case 'P':
-				{
-
-					break;
-				}
-				case 'G':
-				{
-
-					break;
-				}case '.':
-				{
-					printf(" ");
-					break;
-				}
-				case ('|'||'-'):
-				{
-					printf(".");
-					break;
-				}
-				}
-			}
-			
-		}
-	
-	}
-	for (int i = 0; i < (strMap->row) + 10; i++)
-		printf("_");
-}
+//void PrintMapInConsole(GAME* input, GAMER_INFO* user)
+//{
+//	int i, j, line;
+//	for ( i = 0; i < (input->row) + 10; i++)
+//		printf("_");
+//	for (i = 0; i < input->row; i++)
+//	{
+//		for (line = 0; line < 5; line++)
+//		{
+//			printf("\t");
+//			
+//			for (j = 0; j < input->col;j++)
+//			{
+//				switch (input->map[i][j])
+//				{
+//				case '@':
+//				{
+//
+//					break;
+//				}
+//				case 'P':
+//				{
+//
+//					break;
+//				}
+//				case 'G':
+//				{
+//
+//					break;
+//				}case '.':
+//				{
+//					printf(" ");
+//					break;
+//				}
+//				case ('|'||'-'):
+//				{
+//					printf(".");
+//					break;
+//				}
+//				}
+//			}
+//			
+//		}
+//	
+//	}
+//	for (int i = 0; i < (input->row) + 10; i++)
+//		printf("_");
+//}

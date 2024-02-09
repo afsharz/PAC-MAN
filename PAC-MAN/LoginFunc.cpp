@@ -116,8 +116,8 @@ GAMER_INFO* LoginPage(BT_userpass* root)
 		if (cmd == 2)
 		{
 			system("cls");
-			SignUpPage(root);
-			return;
+			return SignUpPage(root);
+			
 		}
 		else
 		{
@@ -161,4 +161,18 @@ GAMER_INFO* SignUpPage(BT_userpass* root)
 		fwrite(&Tmp, sizeof(GAMER_INFO), 1, fp);
 		fclose(fp);
 		return &Tmp;
+}
+
+
+bool UpdateUserData(GAMER_INFO* input) 
+{
+	bool BeSucc;
+	char tmp[addresslen];
+	FILE* fp;
+	strcpy(tmp, input->username);
+	strcat(tmp,".txt");
+	fp = fopen(tmp, "wb");
+	BeSucc=fwrite(input, sizeof(GAMER_INFO), 1, fp);
+	fclose(fp);
+	return BeSucc;
 }

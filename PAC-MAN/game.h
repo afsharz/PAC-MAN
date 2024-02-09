@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <Windows.h>
 #include <string.h>
+#include <string>
 #include <cstdlib>
 #include <stdio.h>
 #include <synchapi.h>
@@ -16,6 +17,12 @@
 #define passwordlen 20
 #define addresslen 200
 #define typelen 20
+#define Up 'H'
+#define Down 'P'
+#define Left 'K'
+#define Right 'M'
+#define EnterKey 13
+#define HORIZENTICAL_MENU int cmd=0,option=0;Get_Key:cmd = _getch();if (cmd == EnterKey){if (option){system("cls");return ChooseMap(option);}else goto Get_Key;}switch (cmd){case Right:{if (cmd < 4)cmd++;else goto Get_Key;break;}case Left:{if (cmd > 1)cmd--;else goto Get_Key;break;}}
 using namespace std;
 typedef struct userpass
 {
@@ -65,11 +72,14 @@ GAME* CreateMatrix(GAME* input, int col, int row, char* strMap);
 char* FindPositon(const char object,int num,char** buff, char** Matrix, int col, int row);
 void PrintMapInConsole(GAME* input, GAMER_INFO* user);// Design Part
 int NumberOfObjects(char** strMap,char Object, int row, int col);
-int MovingGhosts(GAME *input);
+int MovingGhosts(GAME *input, GAMER_INFO* user);
+GAME* GameBar(void);
+GAME* ChooseMap(int option);
+bool UpdateUserData(GAMER_INFO *input);
 
 int HomePage(void);
 GAME* UserMenu(GAMER_INFO* gamer);
 int BeautifulMenu(int option);
-void printInfo(GAMER_INFO* gamer);
-void SaveData(GAMER_INFO* input);
+void printInfo(GAMER_INFO* gamer,bool IsFirst);
+//void SaveData(GAMER_INFO* input);
 #endif GAME_H

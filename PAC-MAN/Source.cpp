@@ -106,9 +106,3 @@ int NumberOfObjects(char** strMap, char object, int row, int col)
 				Num++;
 	return Num;
 }
-
-void wait(int milliseconds) 
-{
-
-	Sleep(milliseconds); // Sleep for milliseconds on Windows
-}

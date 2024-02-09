@@ -6,25 +6,29 @@ int main()
 	GAME game;
 	GAMER_INFO *gamer;
 	BT_userpass *userpass=NULL;
-	cmd=HomePage();
-	switch (cmd)
+	while(true)
 	{
-	case 1:
-	{
-		gamer = LoginPage(userpass);
-		UserMenu(gamer);
+		cmd = HomePage();
+		switch (cmd)
+		{
+		case 1:
+		{
+			gamer = LoginPage(userpass);
+			UserMenu(gamer);
 
-		break;
-	}
-	case 2:
-	{
-		gamer = SignUpPage(userpass);
-		UserMenu(gamer);
-		break;
-	}
+			break;
+		}
+		case 2:
+		{
+			gamer = SignUpPage(userpass);
+			UserMenu(gamer);
+			break;
+		}
+		case 3:
+			return 0;
+		}
 	}
 	
-	return 0;
 }
 
 

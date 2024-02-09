@@ -132,6 +132,7 @@
     <ClInclude Include="game.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ChooesGame.cpp" />
     <ClCompile Include="HomePage.cpp" />
     <ClCompile Include="LoginFunc.cpp" />
     <ClCompile Include="main.cpp" />
