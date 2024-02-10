@@ -26,7 +26,7 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source.cpp">
+    <ClCompile Include="DesignPart.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Playing.cpp">
@@ -35,7 +35,7 @@
     <ClCompile Include="HomePage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ChooesGame.cpp">
+    <ClCompile Include="ChooeGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

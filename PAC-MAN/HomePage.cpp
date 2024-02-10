@@ -58,7 +58,8 @@ int HomePage(void)
 			SetConsoleTextAttribute(hConsole, 112);
 			printf("\tLog in\n");
 			SetConsoleTextAttribute(hConsole, 15);
-			printf("\tSign Up\n\n");
+			printf("\tSign Up");
+			printf("\n\nExit");
 			_getch();
 			break;
 		}
@@ -95,15 +96,16 @@ int HomePage(void)
 
  GAME* UserMenu(GAMER_INFO* gamer)
  {
-	 int option, cmd;
+	 int option=0, cmd=0;
 	 HANDLE hConsole;
 	 hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	 first:
 	 printInfo(gamer,true);
+	 
 	 while (true)
 	 {
 	 Get_Key:
-
+		 _getch();
 		 cmd = _getch();
 		 if (cmd == EnterKey)
 		 {
@@ -112,11 +114,13 @@ int HomePage(void)
 				 system("cls");
 				 if (option == 1)
 				 {
-					 GameBar();
+					 
+					 PlayGame(GameBar(),gamer);
+					 _getch();
 				 }
 				 else if (option == 2)
 				 {
-					 if (!gamer->UnfinishedGame.map[0])
+					 if (!gamer->Unfinish)
 					 {
 						 printf("\nNo Unfinished Game Found!\n");
 						 Sleep(3000);
@@ -124,8 +128,12 @@ int HomePage(void)
 						 goto Get_Key;
 					 }
 					 else
-						 PlayGame(&gamer->UnfinishedGame,gamer);
-					 goto first;
+					 {
+						 gamer->Unfinish = false;
+						 PlayGame(&gamer->UnfinishedGame, gamer);
+						 goto first;
+					 }
+						
 				 }
 				 else if (option == 3)
 				 {
@@ -133,11 +141,16 @@ int HomePage(void)
 					 system("cls");
 					 printf("\n\n\t\tHope to see you soon!");
 					 Sleep(2000);
+					 system("cls");
 					 return NULL;
 				 }
 			 }
 			 else
+			 {
+				 _getch();
 				 goto Get_Key;
+			 }
+				 
 		 }
 		 switch (cmd)
 		 {
@@ -146,10 +159,7 @@ int HomePage(void)
 			 if (option < 3)
 				 option++;
 			 else
-			 {
-				 _getch();
 				 goto Get_Key;
-			 }
 			 break;
 		 }
 		 case Up:
@@ -158,7 +168,6 @@ int HomePage(void)
 				 option--;
 			 else
 			 {
-				 _getch();
 				 goto Get_Key;
 			 }
 			 break;
@@ -171,78 +180,76 @@ int HomePage(void)
 		 {
 			 printInfo(gamer,false);
 			 SetConsoleTextAttribute(hConsole, 112);
-			 printf("\tNew Game\n");
+			 printf("\tStart A New Game\n");
 			 SetConsoleTextAttribute(hConsole, 15);
 			 printf("\tContinue Unfinished Game\n");
 			 printf("\nLog out");
-			 _getch();
 			 break;
 		 }
 		 case 2:
 		 {
 			 printInfo(gamer, false);
-			 printf("\tNew Game\n");
+			 printf("\tStart A New Game\n");
 			 SetConsoleTextAttribute(hConsole, 112);
 			 printf("\tContinue Unfinished Game\n");
 			 SetConsoleTextAttribute(hConsole, 15);
 			 printf("\nLog out");
-			 _getch();
 			 break;
 		 }
 		 case 3:
 		 {
 			 printInfo(gamer, false);
-			 printf("\tNew Game\n");
+			 printf("\tStart A New Game\n");
 			 printf("\tContinue Unfinished Game\n");
 			 SetConsoleTextAttribute(hConsole, 112);
 			 printf("\nLog out");
 			 SetConsoleTextAttribute(hConsole, 15);
-			 _getch();
 			 break;
 		 }
 		 }
+
 	 }
 
  }
  
- int BeautifulMenu(int option)
- {
-	 int cmd;
-	 cmd = _getch();
-	 if (cmd == EnterKey)
-	 {
-		 if (option)
-		 {
-			 system("cls");
-			 return option;
-		 }
+ //int BeautifulMenu(int option)
+ //{
+	// int cmd;
+	// cmd = _getch();
+	// if (cmd == EnterKey)
+	// {
+	//	 if (option)
+	//	 {
+	//		 system("cls");
+	//		 return option;
+	//	 }
 
-		 else
-			 return BeautifulMenu(option);
-	 }
-	 switch (cmd)
-	 {
-	 case Down://down 
-	 {
-		 if (option < 2)
-			 option++;
-		 break;
-	 }
-	 case Up:
-	 {
-		 if (option > 1)
-			 option--;
-		 break;
-	 }
-	 }
-	 return option;
- }
+	//	 else
+	//		 return BeautifulMenu(option);
+	// }
+	// switch (cmd)
+	// {
+	// case Down://down 
+	// {
+	//	 if (option < 2)
+	//		 option++;
+	//	 break;
+	// }
+	// case Up:
+	// {
+	//	 if (option > 1)
+	//		 option--;
+	//	 break;
+	// }
+	// }
+	// return option;
+ //}
 
 
  void printInfo(GAMER_INFO* gamer,bool IsFirst)
  {
 	 printf("pacman icon\n");
-	 printf("%s\t%s\t%d\n", gamer->name, gamer->username, gamer->level);
+	 printf("\tNAME : %s\tUSERNAME : %s\tSCORE : %d\n\n\n", gamer->name, gamer->username, gamer->level);
 	 if(IsFirst)
 	 printf("\tStart A New Game\n\tContinue Unfinished Game\n\nLog out");
  }

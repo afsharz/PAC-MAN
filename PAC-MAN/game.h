@@ -37,20 +37,14 @@ typedef struct BT_userpass
 	struct BT_userpass* right;
 }BT_userpass;
 
-//typedef struct BST
-//{
-//	void* key;
-//	struct BST* left;
-//	struct BST* right;
-// }BST;
+
 typedef struct GAME
 {
 	int score;
 	int difficulty;
-	int nPills;
-	int nGhosts;
+	int nPills, nGhosts;
 	char** Ghost;
-	char** map;
+	char ** map;
 	int col, row;
 }GAME;
 typedef struct GAMER_INFO
@@ -58,6 +52,7 @@ typedef struct GAMER_INFO
 	char name[namelen];
 	char username[usernamelen];
 	int level;
+	bool Unfinish;
 	GAME UnfinishedGame;
 }GAMER_INFO;
 
@@ -67,6 +62,7 @@ BT_userpass* NewUserPass(userpass data);
 userpass* Search(BT_userpass* root,char *strUsername );
 GAMER_INFO* LoginPage(BT_userpass* root);
 GAMER_INFO* SignUpPage(BT_userpass* root);
+void FreeMemory(BT_userpass* root);
 void PlayGame(GAME* input, GAMER_INFO* user);
 GAME* CreateMatrix(GAME* input, int col, int row, char* strMap);
 char* FindPositon(const char object,int num,char** buff, char** Matrix, int col, int row);
@@ -79,7 +75,7 @@ bool UpdateUserData(GAMER_INFO *input);
 
 int HomePage(void);
 GAME* UserMenu(GAMER_INFO* gamer);
-int BeautifulMenu(int option);
+//int BeautifulMenu(int option);
 void printInfo(GAMER_INFO* gamer,bool IsFirst);
 //void SaveData(GAMER_INFO* input);
 #endif GAME_H

@@ -117,7 +117,11 @@ void PlayGame(GAME* input, GAMER_INFO* user)
 	 printf("Do you want to save the game and play it later?\n1.YES\n2.NO");
 		 scanf("%c", &cmd);
 		 if (cmd == 1)
+		 {
 			 user->UnfinishedGame = *input;
+			 user->Unfinish = true;
+
+		 }
 		 else
 			 user->UnfinishedGame = {};
 		 UpdateUserData(user);

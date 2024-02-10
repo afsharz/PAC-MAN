@@ -1,3 +1,4 @@
 ﻿cl : command line  warning D9025: overriding '/D_CRT_SECURE_NO_WARNINGS' with '/U_CRT_SECURE_NO_WARNINGS'
-  HomePage.cpp
+  DesignPart.cpp
+D:\IUT\BP\PAC-MAN\PAC-MAN\DesignPart.cpp(23): warning C4715: 'UploadMap': not all control paths return a value
   PAC-MAN.vcxproj -> D:\IUT\BP\PAC-MAN\x64\Debug\PAC-MAN.exe

@@ -107,11 +107,12 @@ GAMER_INFO* LoginPage(BT_userpass* root)
 	{
 		strcpy(DataType, "GAMER_INFO");
 		strcat(Username, ".txt");
+		system("cls");
 		return (GAMER_INFO*)Loud_File(Username, DataType);
 	}
 	else
 	{
-		printf("WRONG password or username! 1.Try Again\n\n Don't have account?\n2.Sign Up");
+		printf("WRONG password or username!\n\n 1.Try Again\n\n Don't have an account?\n2.Sign Up");
 		scanf("%d", &cmd);
 		if (cmd == 2)
 		{
@@ -149,17 +150,22 @@ GAMER_INFO* SignUpPage(BT_userpass* root)
 		scanf("%s", pass_Tmp.username);
 	}
 	printf("enter your password\n");
-	scanf("%d", pass_Tmp.password);
-	strcpy(Tmp.username, pass_Tmp.password);
+	scanf("%s", pass_Tmp.password);
+	strcpy(Tmp.username, pass_Tmp.username);
 	Tmp.level = 0;
 	Tmp.UnfinishedGame = {};
-		fp=fopen("Passwords.txt", "a+b");
+	Tmp.Unfinish = false;
+		fp=fopen(strFileName, "r+b");
 		fwrite(&pass_Tmp, sizeof(userpass), 1, fp);
 		fclose(fp);
 		strcat(pass_Tmp.username, ".txt");
 		fp=fopen(pass_Tmp.username,"wb");
 		fwrite(&Tmp, sizeof(GAMER_INFO), 1, fp);
 		fclose(fp);
+		system("cls"); 
+		printf("WELCOME TO PAC-MAN CLUB!");
+		Sleep(1500);
+		system("cls");
 		return &Tmp;
 }
 
