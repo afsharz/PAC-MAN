@@ -35,10 +35,6 @@ void* Loud_File(char* strFileName, char* strDataType)
 		gameTmp = new GAME;
 		fseek(fp, 0, SEEK_SET);
 		fscanf(fp, "%d %d\n", &gameTmp->row, &gameTmp->col);
-		gameTmp->map = (char**)malloc(sizeof(char*) * gameTmp->row);
-
-		for (int i = 0; i < gameTmp->row; i++)
-			gameTmp->map[i] = (char*)malloc(sizeof(char) * gameTmp->col);
 		for (int i = 0; i < gameTmp->row; i++)
 		{
 			for (int j = 0; j < gameTmp->col; j++)
@@ -49,7 +45,6 @@ void* Loud_File(char* strFileName, char* strDataType)
 		gameTmp->score = 0;
 		gameTmp->nPills = NumberOfObjects(gameTmp->map, 'P', gameTmp->row, gameTmp->col);
 		gameTmp->nGhosts = NumberOfObjects(gameTmp->map, 'G', gameTmp->row, gameTmp->col);
-		gameTmp->Ghost = (char**)malloc(sizeof(char*) * gameTmp->nGhosts);
 		return gameTmp;
 	}
 

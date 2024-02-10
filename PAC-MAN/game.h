@@ -22,7 +22,10 @@
 #define Left 'K'
 #define Right 'M'
 #define EnterKey 13
-#define HORIZENTICAL_MENU int cmd=0,option=0;Get_Key:cmd = _getch();if (cmd == EnterKey){if (option){system("cls");return ChooseMap(option);}else goto Get_Key;}switch (cmd){case Right:{if (cmd < 4)cmd++;else goto Get_Key;break;}case Left:{if (cmd > 1)cmd--;else goto Get_Key;break;}}
+#define x1 input->Ghost_x
+#define y1 input->Ghost_y
+
+//#define HORIZENTICAL_MENU int cmd=0,option=0;Get_Key:cmd = _getch();if (cmd == EnterKey){if (option){system("cls");return ChooseMap(option);}else goto Get_Key;}switch (cmd){case Right:{if (cmd < 4)cmd++;else goto Get_Key;break;}case Left:{if (cmd > 1)cmd--;else goto Get_Key;break;}}
 using namespace std;
 typedef struct userpass
 {
@@ -43,8 +46,8 @@ typedef struct GAME
 	int score;
 	int difficulty;
 	int nPills, nGhosts;
-	char** Ghost;
-	char ** map;
+	int Ghost_x[6], Ghost_y[6];
+	char map[15][15];
 	int col, row;
 }GAME;
 typedef struct GAMER_INFO
@@ -64,10 +67,10 @@ GAMER_INFO* LoginPage(BT_userpass* root);
 GAMER_INFO* SignUpPage(BT_userpass* root);
 void FreeMemory(BT_userpass* root);
 void PlayGame(GAME* input, GAMER_INFO* user);
-GAME* CreateMatrix(GAME* input, int col, int row, char* strMap);
-char* FindPositon(const char object,int num,char** buff, char** Matrix, int col, int row);
+//GAME* CreateMatrix(GAME* input, int col, int row, char* strMap);
+char* FindPositon(const char object,int num, char Matrix[15][15], int col, int row,int *x,int *y);
 void PrintMapInConsole(GAME* input, GAMER_INFO* user);// Design Part
-int NumberOfObjects(char** strMap,char Object, int row, int col);
+int NumberOfObjects(char strMap[15][15], char Object, int row, int col);
 int MovingGhosts(GAME *input, GAMER_INFO* user);
 GAME* GameBar(void);
 GAME* ChooseMap(int option);

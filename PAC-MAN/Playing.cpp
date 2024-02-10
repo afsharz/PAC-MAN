@@ -3,28 +3,30 @@
 
 void PlayGame(GAME* input, GAMER_INFO* user)
 {
+	int *x, *y;
+	x = (int*)malloc(sizeof(int));
+	y = (int*)malloc(sizeof(int));
 	bool BeSucc;
 	int arrow;
 	char cmd;
-	char* position;
-	position =FindPositon('@',1,&position, input->map, input->col, input->row);
-	FindPositon('G',input->nGhosts,input->Ghost,input->map,input->col,input->row);
+	FindPositon('@',1, input->map, input->col, input->row,x,y);
+	FindPositon('G',input->nGhosts,input->map,input->col,input->row,input->Ghost_x,input->Ghost_y);
 	PrintMapInConsole(input,user);
-	system("cls");
-	 while (_getch() != 0)
+	_getch();
+	cmd= _getch();
+	 while (cmd)
 	{
-		 system("cls");
-		switch (_getch())
+		switch (cmd)
 		{
 		case Down:
 		{
-			if (*(position + input->col) == '.')
+			if (input->map[(*x)+1][*y] == '.')
 			{
-				*(position + input->col) = *position;
-				*position = '.';
-				position = position + input->col;
+				input->map[(*x) + 1][*y] = input->map[*x][*y];
+				input->map[*x][*y] = '.';
+				(*x)++;
 			}
-			else if (*(position + input->col) == 'G')
+			else if (input->map[(*x) + 1][*y] == 'G')
 			{
 				Sleep(2000);
 				system("cls");
@@ -32,77 +34,84 @@ void PlayGame(GAME* input, GAMER_INFO* user)
 				_getch();
 				return;
 			}
-			else if (*(position + input->col) == 'P')
+			else if (input->map[(*x )+ 1][*y] == 'P')
 			{
 				input->score++;
 				input->nPills--;
-				*(position + input->col) = *position;
-				*position = '.';
-				position = position + input->col;
+				input->map[(*x) + 1][*y] = input->map[*x][*y];
+				input->map[*x][*y] = '.';
+				(*x)++;
 			}
 				break;
 		}
 		case Right:
 		{
-			if (*(position + 1) == '.')
+			if (input->map[*x][*y+1] == '.')
 			{
-				*(position + 1) = *position;
-				*position = '.';
-				position = position + 1;
+				input->map[*x][*y + 1] = input->map[*x][*y ];
+				input->map[*x][*y] = '.';
+				(*y)++;
 			}
-			else if (*(position + 1) == 'G')
+			else if (input->map[*x][*y + 1] == 'G')
 				printf("game over");
-			else if (*(position + 1) == 'P')
+			else if (input->map[*x][*y + 1] == 'P')
 			{
 				input->score++;
-				*(position + 1) = *position;
-				*position = '.';
-				position = position + 1;
+				input->nPills--;
+				input->map[*x][(*y) + 1] = input->map[*x][*y];
+				input->map[*x][*y] = '.';
+				(*y)++;
+				
 			}
 				break;
 		}
 		case Left:
 		{
-			if (*position - 1 == '.')
+			if (input->map[*x][(*y)-1]== '.')
 			{
-				*(position - 1) = *position;
-				*position = '.';
-				position = position - 1;
+				input->map[*x][*y-1] = input->map[*x][*y];
+				input->map[*x][*y] = '.';
+				(*y)--;
+
 			}
-			else if (*position - 1 == 'G')
+			else if (input->map[*x][*y-1]== 'G')
 			{
 				user->level--;
 				printf("\ngame over\n");
 			}
-			else if (*position - 1 == 'P')
+			else if (input->map[*x][(*y) - 1] == 'P')
 			{
 				input->score++;
-				*(position - 1) = *position;
-				*position = '.';
-				position = position - 1;
+				input->nPills--;
+				input->map[*x][(*y)-1] = input->map[*x][*y];
+				input->map[*x][*y] = '.';
+				(*y)--;
 			}
 				break;
 		}
 		case Up:
 		{
-			if (*(position - input->col) == '.')
+			if (input->map[(*x)-1][*y] == '.')
 			{
-				*(position - input->col) = *position;
-				*position = '.';
-				position = position - input->col;
+				input->map[(*x)-1][*y] = input->map[*x][*y];
+				input->map[*x][*y] = '.';
+				(*x)--;
 			}
-			else if (*(position - input->col) == 'G')
+			else if (input->map[(*x)-1][*y] == 'G')
 				printf("game over");
-			else if (*(position - input->col) == 'P')
+			else if (input->map[(*x) - 1][*y] == 'P')
 			{
 				input->score++;
-				*(position - input->col) = *position;
-				*position = '.';
-				position = position - input->col;
+				input->nPills--;
+				input->map[(*x) - 1][*y] = input->map[*x][*y];
+				input->map[*x][*y] = '.';
+				(*x)--;
 			}
 				break;
 		}
 		}
+		system("cls");
+		
 		PrintMapInConsole(input,user);
 		printf("\nPress 0 to Exit");
 		if (!input->nPills) // print 'win' if there is no more pills 
@@ -112,7 +121,22 @@ void PlayGame(GAME* input, GAMER_INFO* user)
 			Sleep(3000);
 			return;
 		}
-		_getch();
+		
+		while (true)
+		{
+			cmd=MovingGhosts(input, user);
+			system("cls");
+			PrintMapInConsole(input, user);
+			Sleep(1000);
+			if (_kbhit())
+			{
+				_getch();
+				cmd = _getch();
+				break;
+			}
+		}
+		/*_getch();
+		cmd = _getch();*/
 	}
 	 printf("Do you want to save the game and play it later?\n1.YES\n2.NO");
 		 scanf("%c", &cmd);
@@ -128,46 +152,52 @@ void PlayGame(GAME* input, GAMER_INFO* user)
 
 }
 
-char* FindPositon(const char object, int num, char** buff, char** Matrix, int col, int row)
+char* FindPositon(const char object, int num , char Matrix[15][15], int col, int row, int* x, int* y)
 {
 	if (num == 1)
 	{
 		for (int i = 0; i < row; i++)
 			for (int j = 0; j < col; j++)
 				if (Matrix[i][j] == object)
+				{
+					*x = i;
+					*y = j;
 					return &(Matrix[i][j]);
+				}
+					
 	}
 	else
 		for (int k = 0; k < num; k++)
 			for (int i = 0; i < row; i++)
 				for (int j = 0; j < col; j++)
 					if (Matrix[i][j] == object)
-						*(buff + k) = &(Matrix[i][j]);
-	}
+					{
+						*(x + sizeof(int)* k) = i;
+						*(y + sizeof(int) * k) = j;
+					}
+}
 
 int MovingGhosts(GAME* input,GAMER_INFO *user)
 {
+	while (false)
+		return 0;
 	int arrow;
-	while (true)
-	{
-		if (_kbhit())
-			return _getch();
 		for (int i = 0; i < input->nGhosts; i++)
 		{
 			first:
 			arrow = rand() % 4;
-			Sleep(1000);
+			
 			switch (arrow)
 			{
 			case '0'://down
 			{
-				if (*(input->Ghost[i] + input->col) == '.')
+				if (input->map[x1[i]+1][y1[i]] == '.')
 				{
-					*(input->Ghost[i] + input->col) = *input->Ghost[i];
-					*input->Ghost[i] = '.';
-					input->Ghost[i] = input->Ghost[i] + input->col;
+					input->map[x1[i]+1][y1[i]] = input->map[x1[i]][y1[i]];
+					input->map[x1[i]][y1[i]] = '.';
+					x1[i]++;
 				}
-				else if (*(input->Ghost[i] + input->col) == '@')
+				else if (input->map[x1[i] + 1][y1[i]] == '@')
 					printf("\ngame over :( \n");
 				else
 					goto first;
@@ -175,26 +205,26 @@ int MovingGhosts(GAME* input,GAMER_INFO *user)
 			}
 			case 1://right
 			{
-				if (*(input->Ghost[i] + 1) == '.')
+				if (input->map[x1[i]][y1[i]+1] == '.')
 				{
-					*(input->Ghost[i] + 1) = *input->Ghost[i];
-					*input->Ghost[i] = '.';
-					input->Ghost[i] = input->Ghost[i] + 1;
+					input->map[x1[i]][y1[i] + 1] = input->map[x1[i]][y1[i]];
+					input->map[x1[i]][y1[i]] = '.';
+					y1[i]++  ;
 				}
-				else if (*(input->Ghost[i] + 1) == '@')
+				else if (input->map[x1[i]][y1[i] + 1] == '@')
 					printf("game over");
 				else goto first;
 				break;
 			}
 			case 2://left
 			{
-				if (*input->Ghost[i] - 1 == '.')
+				if (input->map[x1[i]][y1[i]-1] == '.')
 				{
-					*(input->Ghost[i] - 1) = *input->Ghost[i];
-					*input->Ghost[i] = '.';
-					input->Ghost[i] = input->Ghost[i] - 1;
+					input->map[x1[i]][y1[i] - 1] = input->map[x1[i]][y1[i]];
+					input->map[x1[i]][y1[i]] = '.';
+					y1[i]--;
 				}
-				else if (*input->Ghost[i] - 1 == '@')
+				else if (input->map[x1[i]][y1[i]-1]== '@')
 				{
 					printf("\ngame over\n");
 				}
@@ -204,13 +234,13 @@ int MovingGhosts(GAME* input,GAMER_INFO *user)
 			}
 			case 3: //up
 			{
-				if (*(input->Ghost[i] - input->col) == '.')
+				if (input->map[x1[i]-1][y1[i]] == '.')
 				{
-					*(input->Ghost[i] - input->col) = *input->Ghost[i];
-					*input->Ghost[i] = '.';
-					input->Ghost[i] = input->Ghost[i] - input->col;
+					input->map[x1[i] - 1][y1[i]] = input->map[x1[i]][y1[i]];
+					input->map[x1[i]][y1[i]] = '.';
+					x1[i]--;
 				}
-				else if (*(input->Ghost[i] - input->col) == '@')
+				else if (input->map[x1[i] - 1][y1[i]] == '@')
 					printf("game over");
 				else
 					goto first;
@@ -219,8 +249,6 @@ int MovingGhosts(GAME* input,GAMER_INFO *user)
 
 			}
 		}
-		PrintMapInConsole(input,user);
-	}
 }
 
 //void PrintMapInConsole(GAME* input, GAMER_INFO* user)

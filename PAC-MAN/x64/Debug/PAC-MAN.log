@@ -1,4 +1,7 @@
 ﻿cl : command line  warning D9025: overriding '/D_CRT_SECURE_NO_WARNINGS' with '/U_CRT_SECURE_NO_WARNINGS'
-  DesignPart.cpp
-D:\IUT\BP\PAC-MAN\PAC-MAN\DesignPart.cpp(23): warning C4715: 'UploadMap': not all control paths return a value
+  Playing.cpp
+D:\IUT\BP\PAC-MAN\PAC-MAN\Playing.cpp(10,6): warning C4101: 'arrow': unreferenced local variable
+D:\IUT\BP\PAC-MAN\PAC-MAN\Playing.cpp(9,7): warning C4101: 'BeSucc': unreferenced local variable
+D:\IUT\BP\PAC-MAN\PAC-MAN\Playing.cpp(178): warning C4715: 'FindPositon': not all control paths return a value
+D:\IUT\BP\PAC-MAN\PAC-MAN\Playing.cpp(252): warning C4715: 'MovingGhosts': not all control paths return a value
   PAC-MAN.vcxproj -> D:\IUT\BP\PAC-MAN\x64\Debug\PAC-MAN.exe
